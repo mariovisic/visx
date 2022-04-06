@@ -41,7 +41,7 @@
     "check:sizes": "yarn run ts ./scripts/compareBuildSizes.ts",
     "clean": "rm -rf ./packages/**/{lib,esm}",
     "format": "yarn run prettier --write",
-    "jest": "NODE_ENV=test nimbus jest --coverage --verbose",
+    "jest": "NODE_ENV=test nimbus jest",
     "lint": "nimbus eslint",
     "lint:fix": "yarn run lint --fix",
     "prepare-release": "git checkout master && git pull --rebase origin master && lerna updated",
@@ -55,6 +55,7 @@
     "type:workspaces": "nimbus typescript --build"
   },
   "devDependencies": {
+    "buildkite-analytics": "file:/Users/mario.visic/Code/buildkite/js-buildkite-analytics",
     "@airbnb/config-babel": "^3.1.0",
     "@airbnb/config-eslint": "^3.1.0",
     "@airbnb/config-jest": "^3.0.2",
@@ -62,16 +63,16 @@
     "@airbnb/config-typescript": "^3.0.1",
     "@airbnb/nimbus": "^3.1.4",
     "@octokit/rest": "18.1.0",
+    "@testing-library/jest-dom": "^5.9.0",
+    "@testing-library/react": "^10.2.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@testing-library/user-event": "^11.0.1",
     "@types/enzyme": "^3.10.3",
     "@types/jest": "^24.0.18",
     "@types/jsdom": "^12.2.4",
     "@types/node-fetch": "1.6.9",
     "@types/react-test-renderer": "^16.9.0",
     "@types/webpack": "^4.41.17",
-    "@testing-library/jest-dom": "^5.9.0",
-    "@testing-library/react": "^10.2.0",
-    "@testing-library/react-hooks": "^3.2.1",
-    "@testing-library/user-event": "^11.0.1",
     "chalk": "4.1.0",
     "coveralls": "^3.0.6",
     "enzyme": "^3.10.0",
@@ -131,6 +132,10 @@
     "jest": {
       "coverageReporters": [
         "json"
+      ],
+      "reporters": [
+        "default",
+        "buildkite-analytics"
       ],
       "collectCoverageFrom": [
         "packages/src/**/*.{ts,tsx}",
@@ -233,5 +238,11 @@
         }
       ]
     }
+  },
+  "dependencies": {
+    "@visx/group": "file:packages/visx-group",
+    "@visx/mock-data": "file:packages/visx-mock-data",
+    "@visx/scale": "file:packages/visx-scale",
+    "@visx/shape": "file:packages/visx-shape"
   }
 }
